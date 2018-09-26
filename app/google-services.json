@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "84586143096",
+    "firebase_url": "https://herb-96c26.firebaseio.com",
+    "project_id": "herb-96c26",
+    "storage_bucket": "herb-96c26.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:84586143096:android:116ee3a8b7ef4156",
+        "android_client_info": {
+          "package_name": "com.ivanjt.herb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "84586143096-dejvf9gf9g396k2d2ugfvu4alonekcmn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ivanjt.herb",
+            "certificate_hash": "24810f93701eb6fa01b2c66ef0eb0c0fed7e3863"
+          }
+        },
+        {
+          "client_id": "84586143096-87qtqagdgki125ol5i20fi03301ibdgl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYUjZbWP1-6n-0h7IPP4TszkbylEZKX8s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "84586143096-87qtqagdgki125ol5i20fi03301ibdgl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
