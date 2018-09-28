@@ -1,9 +1,9 @@
 # HerB
 
 ## Daftar isi
-1. [Tentang HerB](https://github.com/ivanj09/HerB#tentang-herb)
-2. [Anggota Tim](https://github.com/ivanj09/HerB#anggota-tim)
-3. [Tahap Pengembangan](https://github.com/ivanj09/HerB#tahap-pengembangan)
+1. [Tentang HerB](https://github.com/ivanj09/HerB/tree/feature/SignInAuthentication#tentang-herb)
+2. [Anggota Tim](https://github.com/ivanj09/HerB/tree/feature/SignInAuthentication#anggota-tim)
+3. [Tahap Pengembangan](https://github.com/ivanj09/HerB/tree/feature/SignInAuthentication#tahap-pengembangan)
 
 -----------
 ### Tentang HerB
