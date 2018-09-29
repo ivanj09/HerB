@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Authentication.LoginActivity">
+
+    <TextView
+        android:id="@+id/tv_title_app"
+        style="@style/TitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".125" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".875" />
+
+    <EditText
+        android:id="@+id/et_email_address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/email_address"
+        android:imeOptions="actionNext"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/end_guideline"
+        app:layout_constraintStart_toEndOf="@id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_app"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.425" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:hint="@string/password"
+        android:imeOptions="actionGo"
+        android:inputType="textPassword"
+        android:paddingStart="16dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="12dp"
+        app:layout_constraintEnd_toEndOf="@id/et_email_address"
+        app:layout_constraintStart_toStartOf="@id/et_email_address"
+        app:layout_constraintTop_toBottomOf="@id/et_email_address" />
+
+    <Button
+        android:id="@+id/bt_sign_in_by_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
+        android:backgroundTint="@color/colorPrimary"
+        android:onClick="signInWith"
+        android:text="@string/common_signin_button_text"
+        android:textColor="@color/colorBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/et_email_address"
+        app:layout_constraintStart_toStartOf="@id/et_email_address"
+        app:layout_constraintTop_toBottomOf="@id/et_password"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <Button
+        android:id="@+id/bt_sign_in_by_google"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/common_google_signin_btn_text_light_normal"
+        android:onClick="signInWith"
+        android:text="@string/common_signin_button_text_long"
+        app:layout_constraintEnd_toEndOf="@id/et_email_address"
+        app:layout_constraintStart_toStartOf="@id/et_email_address"
+        app:layout_constraintTop_toBottomOf="@id/bt_sign_in_by_email" />
+
+    <TextView
+        android:id="@+id/tv_create_new_account"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:onClick="signUp"
+        android:text="@string/sign_up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/start_guideline"
+        app:layout_constraintRight_toRightOf="@id/end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/bt_sign_in_by_google" />
+</android.support.constraint.ConstraintLayout>
