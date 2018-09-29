@@ -1,19 +1,37 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="editTextBackground">@drawable/custom_edit_text</item>
+        <item name="editTextStyle">@style/HerBEditTextStyle</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+    </style>
+
+    <!-- Login activity theme. -->
+    <style name="LoginTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="editTextBackground">@drawable/custom_edit_text</item>
+        <item name="editTextStyle">@style/HerBEditTextStyle</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowBackground">@color/colorBackground</item>
     </style>
 
     <!-- Custom Text for Welcome Screen Login Activity -->
-    <style name="TitleText" >
+    <style name="TitleText">
         <item name="android:fontFamily">@font/font</item>
         <item name="android:textSize">60sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:text">@string/app_name</item>
+    </style>
+
+    <!-- Custom EditText -->
+    <style name="HerBEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingBottom">12dp</item>
     </style>
 
 </resources>

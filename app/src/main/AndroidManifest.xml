@@ -10,13 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:configChanges="keyboardHidden|orientation">
-        <activity android:name=".LoginActivity" android:screenOrientation="portrait">
+        <activity
+            android:theme="@style/LoginTheme"
+            android:name=".Authentication.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Authentication.SignUpActivity" android:label="Sign Up"/>
         <activity android:name=".DashboardActivity" android:screenOrientation="portrait"/>
     </application>
 
