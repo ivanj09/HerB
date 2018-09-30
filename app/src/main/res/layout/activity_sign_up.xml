@@ -31,10 +31,11 @@
         app:layout_constraintVertical_bias="0.075" />
 
     <EditText
-        android:id="@+id/tv_display_name"
+        android:id="@+id/et_display_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/display_name"
+        android:imeOptions="actionNext"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/end_guideline"
@@ -43,47 +44,51 @@
         app:layout_constraintVertical_bias="0.325" />
 
     <EditText
-        android:id="@+id/tv_age"
+        android:id="@+id/et_age"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="@string/age"
+        android:imeOptions="actionNext"
         android:inputType="number"
         app:layout_constraintEnd_toStartOf="@id/end_guideline"
         app:layout_constraintStart_toEndOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_display_name" />
+        app:layout_constraintTop_toBottomOf="@id/et_display_name" />
 
     <EditText
-        android:id="@+id/tv_email_address"
+        android:id="@+id/et_email_address"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="@string/email_address"
+        android:imeOptions="actionNext"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toStartOf="@id/end_guideline"
         app:layout_constraintStart_toEndOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_age" />
+        app:layout_constraintTop_toBottomOf="@id/et_age" />
 
     <EditText
-        android:id="@+id/tv_password"
+        android:id="@+id/et_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="@string/password"
+        android:imeOptions="actionNext"
         android:inputType="textPassword"
         app:layout_constraintEnd_toStartOf="@id/end_guideline"
         app:layout_constraintStart_toEndOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_email_address" />
+        app:layout_constraintTop_toBottomOf="@id/et_email_address" />
 
     <EditText
-        android:id="@+id/tv_confirm_password"
+        android:id="@+id/et_confirm_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="@string/confirm_password"
+        android:imeOptions="actionGo"
         android:inputType="textPassword"
         app:layout_constraintEnd_toStartOf="@id/end_guideline"
         app:layout_constraintStart_toEndOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_password" />
+        app:layout_constraintTop_toBottomOf="@id/et_password" />
 
 </android.support.constraint.ConstraintLayout>

@@ -36,17 +36,17 @@ public class LoginActivity extends AppCompatActivity {
         //Get current instance of FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 
-        //If user in active state
+        //If user in active state, directly go to dashboard (will be implemented next time)
         //        if (mAuth.getCurrentUser() != null){
         //            startActivity(new Intent(this, DashboardActivity.class));
         //        }
 
-        //Reference object to views in xml
+        //Reference objects to views in xml
         mEmailEditText = this.findViewById(R.id.et_email_address);
         mPasswordEditText = this.findViewById(R.id.et_password);
         mSignInWithEmail = this.findViewById(R.id.bt_sign_in_by_email);
 
-        //Set enabled to false
+        //Set enabled state to false
         mSignInWithEmail.setEnabled(false);
 
         //Implements OnEditorActionListener for email
