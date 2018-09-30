@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Authentication.SignUpActivity" android:label="Sign Up"/>
-        <activity android:name=".DashboardActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".DashboardActivity" android:screenOrientation="portrait" android:launchMode="singleTask"/>
     </application>
 
 </manifest>
