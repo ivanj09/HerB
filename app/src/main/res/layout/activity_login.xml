@@ -11,12 +11,11 @@
         style="@style/TitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.125" />
 
     <android.support.constraint.Guideline
         android:id="@+id/start_guideline"
@@ -44,7 +43,7 @@
         app:layout_constraintStart_toEndOf="@id/start_guideline"
         app:layout_constraintTop_toBottomOf="@id/tv_title_app"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.425" />
+        app:layout_constraintVertical_bias="0.40" />
 
     <EditText
         android:id="@+id/et_password"
@@ -75,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="@id/et_email_address"
         app:layout_constraintStart_toStartOf="@id/et_email_address"
         app:layout_constraintTop_toBottomOf="@id/et_password"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintVertical_bias="0.25" />
 
     <Button
         android:id="@+id/bt_sign_in_by_google"
@@ -95,6 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/sf_pro_display_regular"
         android:onClick="signUp"
         android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
