@@ -3,6 +3,7 @@ package com.ivanjt.herb.Authentication;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -14,6 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ivanjt.herb.R;
 
@@ -123,38 +127,21 @@ public class LoginActivity extends AppCompatActivity {
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 progressDialog.show();
 
-                //Create AsyncTask for login using other thread, not in UI Thread
-                new AsyncTask<Void, Integer, Void>() {
+                mAuth.signInWithEmailAndPassword(mEmailEditText.getText().toString(), mPasswordEditText.getText().toString())
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    protected Void doInBackground(Void... voids) {
-                        //Sign in with email and password
-                        mAuth.signInWithEmailAndPassword(mEmailEditText.getText().toString(), mPasswordEditText.getText().toString());
-
-                        try {
-                            Thread.sleep(400);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        return null;
-                    }
-
-                    @Override
-                    protected void onPostExecute(Void aVoid) {
-                        super.onPostExecute(aVoid);
-
-                        if (mAuth.getCurrentUser() != null){
-                            Toast.makeText(LoginActivity.this, "Sign In as " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(LoginActivity.this, "SignIn as " + mEmailEditText.getText().toString(), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(LoginActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
                         }
-
-                        //Dismiss the progress dialog
                         progressDialog.dismiss();
 
-                        //Need to delete soon.., only for testing purpose
+                        //Sign out, must be delete (only for testing)
                         mAuth.signOut();
                     }
-                }.execute();
+                });
 
                 break;
             case R.id.bt_sign_in_by_google: //If user sign in with Google Account

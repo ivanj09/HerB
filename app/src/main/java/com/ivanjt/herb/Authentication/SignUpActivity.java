@@ -209,60 +209,37 @@ public class SignUpActivity extends AppCompatActivity {
         progressDialog.setProgressStyle(android.app.ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.show();
 
+        //Sign Up with validated email and pass
+        mAuth.createUserWithEmailAndPassword(mEmailEditText.getText().toString(), mPasswordEditText.getText().toString())
+                .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            User user = new User(
+                                    mDisplayNameEditText.getText().toString(),
+                                    mAgeEditText.getText().toString()
+                            );
 
-        new AsyncTask<Void, Integer, Boolean>() {
-            @Override
-            protected Boolean doInBackground(Void... voids) {
-                //Sign Up with validated email and pass
-                mAuth.createUserWithEmailAndPassword(mEmailEditText.getText().toString(), mPasswordEditText.getText().toString())
-                        .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    User user = new User(
-                                            mDisplayNameEditText.getText().toString(),
-                                            mAgeEditText.getText().toString()
-                                    );
-
-                                    FirebaseDatabase.getInstance().getReference("Users")
-                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            mAuth.signInWithEmailAndPassword(mEmailEditText.getText().toString(), mPasswordEditText.getText().toString());
-                                        }
-                                    });
-
-                                    try {
-                                        Thread.sleep(400);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    mAuth.signInWithEmailAndPassword(mEmailEditText.getText().toString(), mPasswordEditText.getText().toString());
                                 }
-                            }
-                        });
+                            });
 
-                return mAuth.getCurrentUser() != null;
-            }
+                            Toast.makeText(SignUpActivity.this, "Register successfully!", Toast.LENGTH_SHORT).show();
 
-            @Override
-            protected void onPostExecute(Boolean aBoolean) {
-                super.onPostExecute(aBoolean);
-
-                if (aBoolean) {
-                    Toast.makeText(SignUpActivity.this, "Register successfully!", Toast.LENGTH_SHORT).show();
-
-                    Intent intent = new Intent(SignUpActivity.this, DashboardActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-
-                } else {
-                    Toast.makeText(SignUpActivity.this, "Email address has already been taken, please log in!", Toast.LENGTH_SHORT).show();
-                }
-
-                progressDialog.dismiss();
-            }
-        }.execute();
+                            Intent intent = new Intent(SignUpActivity.this, DashboardActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(SignUpActivity.this, "Email address has already been taken, please log in!", Toast.LENGTH_SHORT).show();
+                        }
+                        progressDialog.dismiss();
+                    }
+                });
     }
 
     @Override
