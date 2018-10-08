@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
@@ -22,10 +24,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.ivanjt.herb.R;
 
 
-/***
+/**
  * This Activity provides Sign-In by Email or Google
- * Catatan: Dummy user -> email = ivanjth26@gmail.com , pass = ulala999
- */
+ *
+ * */
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText mEmailEditText;
@@ -54,7 +56,43 @@ public class LoginActivity extends AppCompatActivity {
         mSignInWithEmail.setEnabled(false);
 
         //Implements OnEditorActionListener for email
-        mEmailEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        mEmailEditText.setOnEditorActionListener(editorActionListener());
+
+        //Implements OnEditorActionListener for pass
+        mPasswordEditText.setOnEditorActionListener(editorActionListener());
+
+        //Implements OnFocusChanged for email
+        mEmailEditText.addTextChangedListener(textChangedListener());
+
+        //Implements OnFocusChanged for pass
+        mPasswordEditText.addTextChangedListener(textChangedListener());
+    }
+
+    private TextWatcher textChangedListener() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (Validation.isEmailValid(mEmailEditText.getText().toString()) && Validation.isPassValid(mPasswordEditText.getText().toString())){
+                    mSignInWithEmail.setEnabled(true);
+                } else {
+                    mSignInWithEmail.setEnabled(false);
+                }
+            }
+        };
+    }
+
+    private TextView.OnEditorActionListener editorActionListener() {
+        return new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_NEXT){
@@ -66,51 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 return false;
             }
-        });
-
-        //Implements OnEditorActionListener for pass
-        mPasswordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_GO){
-                    if (Validation.isEmailValid(mEmailEditText.getText().toString()) && Validation.isPassValid(mPasswordEditText.getText().toString())){
-                        mSignInWithEmail.setEnabled(true);
-                        mSignInWithEmail.performClick();
-                    } else {
-                        mSignInWithEmail.setEnabled(false);
-                    }
-                }
-                return false;
-            }
-        });
-
-        //Implements OnFocusChanged for email
-        mEmailEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!b){
-                    if (Validation.isEmailValid(mEmailEditText.getText().toString()) && Validation.isPassValid(mPasswordEditText.getText().toString())){
-                        mSignInWithEmail.setEnabled(true);
-                    } else {
-                        mSignInWithEmail.setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        //Implements OnFocusChanged for pass
-        mPasswordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!b){
-                    if (Validation.isEmailValid(mEmailEditText.getText().toString()) && Validation.isPassValid(mPasswordEditText.getText().toString())){
-                        mSignInWithEmail.setEnabled(true);
-                    } else {
-                        mSignInWithEmail.setEnabled(false);
-                    }
-                }
-            }
-        });
+        };
     }
 
     public void signInWith(View view) {
@@ -127,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 progressDialog.show();
 
+                //Sign in with email
                 mAuth.signInWithEmailAndPassword(mEmailEditText.getText().toString(), mPasswordEditText.getText().toString())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -137,9 +132,6 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
                         }
                         progressDialog.dismiss();
-
-                        //Sign out, must be delete (only for testing)
-                        mAuth.signOut();
                     }
                 });
 
@@ -147,6 +139,9 @@ public class LoginActivity extends AppCompatActivity {
             case R.id.bt_sign_in_by_google: //If user sign in with Google Account
                 break;
         }
+
+        //Sign out, must be delete (only for testing)
+        mAuth.signOut();
     }
 
     public void signUp(View view) {

@@ -5,6 +5,24 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 class Validation {
+    static void validateDisplayName(EditText editText, MenuItem menuItem) {
+        if (isDisplayNameValid(editText.getText().toString())){
+            editText.setError(null);
+        } else {
+            menuItem.setEnabled(false);
+            editText.setError("This field cannot be empty");
+        }
+    }
+
+    static void validateAge(EditText editText, MenuItem menuItem) {
+        if (isAgeValid(editText.getText().toString())){
+            editText.setError(null);
+        } else {
+            menuItem.setEnabled(false);
+            editText.setError("This field cannot be empty");
+        }
+    }
+
     static void validateEmail(EditText editText, MenuItem menuItem) {
         if (isEmailValid(editText.getText().toString())) {
             editText.setError(null);

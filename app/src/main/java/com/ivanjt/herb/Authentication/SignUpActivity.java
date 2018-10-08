@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -27,14 +29,17 @@ import com.ivanjt.herb.Authentication.Model.User;
 import com.ivanjt.herb.DashboardActivity;
 import com.ivanjt.herb.R;
 
+/**
+ * This activity provides Sign-Up with Email
+ *
+ * */
 public class SignUpActivity extends AppCompatActivity {
-    private static final String TAG = SignUpActivity.class.getSimpleName();
-
     private EditText mEmailEditText;
     private EditText mPasswordEditText;
     private EditText mConfirmPasswordEditText;
     private EditText mAgeEditText;
     private EditText mDisplayNameEditText;
+    private MenuItem mDoneButton;
 
     private FirebaseAuth mAuth;
 
@@ -60,134 +65,98 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.complete_sign_up, menu);
-        final MenuItem mDoneButton = menu.findItem(R.id.mi_done);
+        mDoneButton = menu.findItem(R.id.mi_done);
 
-        //Implements OnFocusChanged for email
+        //Implements OnFocusChanged and textChanghedListener for name
+        mDisplayNameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    Validation.validateDisplayName(mDisplayNameEditText, mDoneButton);
+                }
+            }
+        });
+
+        mDisplayNameEditText.addTextChangedListener(textChangedListener());
+
+        //Implements OnFocusChanged and textChangedListener for age
+        mAgeEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    Validation.validateAge(mAgeEditText, mDoneButton);
+                }
+            }
+        });
+
+        mAgeEditText.addTextChangedListener(textChangedListener());
+
+        //Implements OnFocusChanged and textChangedListener for email
         mEmailEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
                     Validation.validateEmail(mEmailEditText, mDoneButton);
-
-                    boolean isEmailValid = Validation.isEmailValid(mEmailEditText.getText().toString());
-                    boolean isPassValid = Validation.isPassValid(mPasswordEditText.getText().toString());
-                    boolean isConfirmPassValid = Validation.isPassValid(mPasswordEditText.getText().toString()) && mConfirmPasswordEditText.getText().length() >= 8;
-                    boolean isAgeValid = Validation.isAgeValid(mAgeEditText.getText().toString());
-                    boolean isDisplayNameValid = Validation.isDisplayNameValid(mDisplayNameEditText.getText().toString());
-
-                    if (isAgeValid && isConfirmPassValid && isPassValid && isEmailValid && isDisplayNameValid) {
-                        mDoneButton.setEnabled(true);
-
-                    }
                 }
             }
         });
 
-        //Implements OnFocusChanged for password
+        mEmailEditText.addTextChangedListener(textChangedListener());
+
+        //Implements OnFocusChanged and textChangedListener for password
         mPasswordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
                     Validation.validatePass(mPasswordEditText, mDoneButton);
-
-                    boolean isEmailValid = Validation.isEmailValid(mEmailEditText.getText().toString());
-                    boolean isPassValid = Validation.isPassValid(mPasswordEditText.getText().toString());
-                    boolean isConfirmPassValid = Validation.isPassValid(mPasswordEditText.getText().toString()) && mConfirmPasswordEditText.getText().length() >= 8;
-                    boolean isAgeValid = Validation.isAgeValid(mAgeEditText.getText().toString());
-                    boolean isDisplayNameValid = Validation.isDisplayNameValid(mDisplayNameEditText.getText().toString());
-
-                    if (isAgeValid && isConfirmPassValid && isPassValid && isEmailValid && isDisplayNameValid) {
-                        mDoneButton.setEnabled(true);
-                    }
                 }
             }
         });
 
-        //Implements OnFocusChanged for confirm password
+        mPasswordEditText.addTextChangedListener(textChangedListener());
+
+        //Implements OnFocusChanged and textChangedListener for confirm password
         mConfirmPasswordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
                     Validation.validateConfirmPass(mPasswordEditText, mConfirmPasswordEditText, mDoneButton);
-
-                    boolean isEmailValid = Validation.isEmailValid(mEmailEditText.getText().toString());
-                    boolean isPassValid = Validation.isPassValid(mPasswordEditText.getText().toString());
-                    boolean isConfirmPassValid = Validation.isPassValid(mPasswordEditText.getText().toString()) && mConfirmPasswordEditText.getText().length() >= 8;
-                    boolean isAgeValid = Validation.isAgeValid(mAgeEditText.getText().toString());
-                    boolean isDisplayNameValid = Validation.isDisplayNameValid(mDisplayNameEditText.getText().toString());
-
-                    if (isAgeValid && isConfirmPassValid && isPassValid && isEmailValid && isDisplayNameValid) {
-                        mDoneButton.setEnabled(true);
-                    }
                 }
             }
         });
 
-        //Implements OnEditorActionListener for email
-        mEmailEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_NEXT) {
-                    Validation.validateEmail(mEmailEditText, mDoneButton);
-
-                    boolean isEmailValid = Validation.isEmailValid(mEmailEditText.getText().toString());
-                    boolean isPassValid = Validation.isPassValid(mPasswordEditText.getText().toString());
-                    boolean isConfirmPassValid = Validation.isPassValid(mPasswordEditText.getText().toString()) && mConfirmPasswordEditText.getText().length() >= 8;
-                    boolean isAgeValid = Validation.isAgeValid(mAgeEditText.getText().toString());
-                    boolean isDisplayNameValid = Validation.isDisplayNameValid(mDisplayNameEditText.getText().toString());
-
-                    if (isAgeValid && isConfirmPassValid && isPassValid && isEmailValid && isDisplayNameValid) {
-                        mDoneButton.setEnabled(true);
-                    }
-                }
-                return false;
-            }
-        });
-
-        //Implements OnEditorActionListener for pass
-        mPasswordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_NEXT) {
-                    Validation.validatePass(mPasswordEditText, mDoneButton);
-
-                    boolean isEmailValid = Validation.isEmailValid(mEmailEditText.getText().toString());
-                    boolean isPassValid = Validation.isPassValid(mPasswordEditText.getText().toString());
-                    boolean isConfirmPassValid = Validation.isPassValid(mPasswordEditText.getText().toString()) && mConfirmPasswordEditText.getText().length() >= 8;
-                    boolean isAgeValid = Validation.isAgeValid(mAgeEditText.getText().toString());
-                    boolean isDisplayNameValid = Validation.isDisplayNameValid(mDisplayNameEditText.getText().toString());
-
-                    if (isAgeValid && isConfirmPassValid && isPassValid && isEmailValid && isDisplayNameValid) {
-                        mDoneButton.setEnabled(true);
-                    }
-                }
-                return false;
-            }
-        });
-
-        //Implements OnEditorActionListener for confirm pass
-        mConfirmPasswordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_GO) {
-                    Validation.validatePass(mPasswordEditText, mDoneButton);
-
-                    boolean isEmailValid = Validation.isEmailValid(mEmailEditText.getText().toString());
-                    boolean isPassValid = Validation.isPassValid(mPasswordEditText.getText().toString());
-                    boolean isConfirmPassValid = Validation.isPassValid(mPasswordEditText.getText().toString()) && mConfirmPasswordEditText.getText().length() >= 8;
-                    boolean isAgeValid = Validation.isAgeValid(mAgeEditText.getText().toString());
-                    boolean isDisplayNameValid = Validation.isDisplayNameValid(mDisplayNameEditText.getText().toString());
-
-                    if (isAgeValid && isConfirmPassValid && isPassValid && isEmailValid && isDisplayNameValid) {
-                        mDoneButton.setEnabled(true);
-                        registerUser();
-                    }
-                }
-                return false;
-            }
-        });
+        mConfirmPasswordEditText.addTextChangedListener(textChangedListener());
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private TextWatcher textChangedListener() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                boolean isEmailValid = Validation.isEmailValid(mEmailEditText.getText().toString());
+                boolean isPassValid = Validation.isPassValid(mPasswordEditText.getText().toString());
+                boolean isConfirmPassValid = Validation.isPassValid(mPasswordEditText.getText().toString()) && mConfirmPasswordEditText.getText().length() >= 8;
+                boolean isAgeValid = Validation.isAgeValid(mAgeEditText.getText().toString());
+                boolean isDisplayNameValid = Validation.isDisplayNameValid(mDisplayNameEditText.getText().toString());
+
+                if (isAgeValid && isConfirmPassValid && isPassValid && isEmailValid && isDisplayNameValid) {
+                    mDoneButton.setEnabled(true);
+                } else {
+                    mDoneButton.setEnabled(false);
+                }
+            }
+        };
     }
 
     @Override
@@ -235,7 +204,7 @@ public class SignUpActivity extends AppCompatActivity {
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(SignUpActivity.this, "Email address has already been taken, please log in!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, "Email address has already been taken, try again!", Toast.LENGTH_SHORT).show();
                         }
                         progressDialog.dismiss();
                     }
