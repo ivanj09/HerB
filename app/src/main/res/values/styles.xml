@@ -10,7 +10,7 @@
     </style>
 
     <!-- Login activity theme. -->
-    <style name="LoginTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="NoActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="editTextBackground">@drawable/layer_1_not_focused_edit_text</item>
         <item name="editTextStyle">@style/HerBEditTextStyle</item>
         <item name="android:textViewStyle">@style/HerBTextViewStyle</item>

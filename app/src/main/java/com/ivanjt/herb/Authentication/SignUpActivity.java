@@ -2,7 +2,6 @@ package com.ivanjt.herb.Authentication;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,12 +9,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.ivanjt.herb.Authentication.Model.User;
+import com.ivanjt.herb.Model.User;
 import com.ivanjt.herb.DashboardActivity;
 import com.ivanjt.herb.R;
 
@@ -191,6 +187,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .child("Information")
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -209,15 +206,6 @@ public class SignUpActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 });
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        //It must be delete in the next commit, only for testing
-        if (mAuth.getCurrentUser() != null)
-            mAuth.signOut();
     }
 
     private void setCustomActionBar() {

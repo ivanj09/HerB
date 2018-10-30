@@ -2,13 +2,11 @@ package com.ivanjt.herb.Authentication;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -21,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.ivanjt.herb.DashboardActivity;
 import com.ivanjt.herb.R;
 
 
@@ -42,10 +41,12 @@ public class LoginActivity extends AppCompatActivity {
         //Get current instance of FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 
-        //If user in active state, directly go to dashboard (will be implemented next time)
-        //        if (mAuth.getCurrentUser() != null){
-        //            startActivity(new Intent(this, DashboardActivity.class));
-        //        }
+        //If user in active state, directly go to dashboard
+        if (mAuth.getCurrentUser() != null){
+            Intent intent = new Intent(this, DashboardActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
 
         //Reference objects to views in xml
         mEmailEditText = this.findViewById(R.id.et_email_address);
@@ -128,6 +129,10 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             Toast.makeText(LoginActivity.this, "SignIn as " + mEmailEditText.getText().toString(), Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
                         } else {
                             Toast.makeText(LoginActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
                         }
@@ -139,9 +144,6 @@ public class LoginActivity extends AppCompatActivity {
             case R.id.bt_sign_in_by_google: //If user sign in with Google Account
                 break;
         }
-
-        //Sign out, must be delete (only for testing)
-        mAuth.signOut();
     }
 
     public void signUp(View view) {
