@@ -2,9 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/settings"
-            android:icon="@drawable/ic_settings_black_24dp"
-            android:title="@string/settings" />
+            android:id="@+id/home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/app_name" />
+        <item
+            android:id="@+id/history"
+            android:icon="@drawable/ic_history_black_24dp"
+            android:title="@string/history" />
         <item
             android:id="@+id/log_out"
             android:icon="@drawable/ic_log_out_settings_new_black_24dp"

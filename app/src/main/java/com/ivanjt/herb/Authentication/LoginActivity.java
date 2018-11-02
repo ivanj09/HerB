@@ -22,11 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.ivanjt.herb.DashboardActivity;
 import com.ivanjt.herb.R;
 
-
-/**
- * This Activity provides Sign-In by Email or Google
- *
- * */
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText mEmailEditText;

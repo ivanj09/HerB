@@ -25,10 +25,6 @@ import com.ivanjt.herb.Model.User;
 import com.ivanjt.herb.DashboardActivity;
 import com.ivanjt.herb.R;
 
-/**
- * This activity provides Sign-Up with Email
- *
- * */
 public class SignUpActivity extends AppCompatActivity {
     private EditText mEmailEditText;
     private EditText mPasswordEditText;
@@ -180,10 +176,7 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            User user = new User(
-                                    mDisplayNameEditText.getText().toString(),
-                                    mAgeEditText.getText().toString()
-                            );
+                            User user = new User(mDisplayNameEditText.getText().toString(), Integer.parseInt(mAgeEditText.getText().toString()));
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

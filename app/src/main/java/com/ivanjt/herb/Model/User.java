@@ -1,9 +1,10 @@
 package com.ivanjt.herb.Model;
 
 public class User {
-    public String name, age;
+    public String name;
+    public int age;
 
-    public User(String name, String age){
+    public User(String name, int age){
         this.name = name;
         this.age = age;
     }
